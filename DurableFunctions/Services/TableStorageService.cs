@@ -1,8 +1,7 @@
 ﻿using Azure;
 using Azure.Data.Tables;
-using DurableFunctions.Models;
+using DurableFunctions.Models.Dto;
 using DurableFunctions.Services.Interfaces;
-using Microsoft.WindowsAzure.Storage.Table;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 
@@ -12,22 +11,22 @@ namespace DurableFunctions.Services
     {
         private string _connectionString = "DefaultEndpointsProtocol=https;AccountName=development2024;AccountKey=NwhakNgdRM9fGB06a8M04FGjmVVNovTB0RkyOaTk6sCljwsK5+YFnmbiL0YZu8Efszjcupfxc1tL+AStbABL/Q==;EndpointSuffix=core.windows.net";
 
-        public async Task AddObject(DummyObject dummyObject)
+        public async Task AddObject(DummyObjectTableEntity dummyObjectDto)
         {
             TableClient tableClient = new TableClient(_connectionString, "developmentTable");
 
             await tableClient.CreateIfNotExistsAsync();
-            await tableClient.AddEntityAsync(dummyObject);
+            await tableClient.AddEntityAsync(dummyObjectDto);
         }
 
-        public async Task<List<DummyObject>> GetAllObjects()
+        public async Task<List<DummyObjectTableEntity>> GetAllObjects()
         {
             TableClient tableClient = new TableClient(_connectionString, "developmentTable");
 
-            AsyncPageable<DummyObject> data = tableClient.QueryAsync<DummyObject>();
-            List<DummyObject> dummyObjects = new List<DummyObject>();
+            AsyncPageable<DummyObjectTableEntity> data = tableClient.QueryAsync<DummyObjectTableEntity>();
+            List<DummyObjectTableEntity> dummyObjects = new List<DummyObjectTableEntity>();
 
-            await foreach (DummyObject dummyObject in data)
+            await foreach (DummyObjectTableEntity dummyObject in data)
             {
                 dummyObjects.Add(dummyObject);
             }
@@ -35,10 +34,10 @@ namespace DurableFunctions.Services
             return dummyObjects;
         }
 
-        public async Task DeleteObject(DummyObject dummyObject)
+        public async Task DeleteObject(DummyObjectTableEntity dummyObjectDto)
         {
             TableClient tableClient = new TableClient(_connectionString, "developmentTable");
-            await tableClient.DeleteEntityAsync(dummyObject.PartitionKey,dummyObject.RowKey);
+            await tableClient.DeleteEntityAsync(dummyObjectDto.PartitionKey, dummyObjectDto.RowKey);
         }
     }
 }

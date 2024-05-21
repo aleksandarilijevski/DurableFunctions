@@ -1,5 +1,6 @@
 ﻿using Azure.Messaging.ServiceBus;
 using DurableFunctions.Models;
+using DurableFunctions.Models.Dto;
 using DurableFunctions.Services.Interfaces;
 using Microsoft.Azure.WebJobs;
 using Microsoft.Extensions.Logging;
@@ -21,9 +22,9 @@ namespace DurableFunctions.Triggers
         [FunctionName("TimerTrigger")]
         public async Task TimerTriggerFunction([TimerTrigger("0 * * * * *", RunOnStartup = false)] TimerInfo timerInfo, ILogger log)
         {
-            List<DummyObject> dummyObjects = await _tableStorageService.GetAllObjects();
+            List<DummyObjectTableEntity> dummyObjects = await _tableStorageService.GetAllObjects();
 
-            foreach (DummyObject dummyObject in dummyObjects)
+            foreach (DummyObjectTableEntity dummyObject in dummyObjects)
             {
                 ServiceBusClient client = new ServiceBusClient("Endpoint=sb://servicebusexample2024.servicebus.windows.net/;SharedAccessKeyName=RootManageSharedAccessKey;SharedAccessKey=14Y8qCyQN6Rqr3oXs/Bn+E6fS9XbEMrQV+ASbCd8E10=");
                 ServiceBusSender sender = client.CreateSender("servicebusfunction");

@@ -1,4 +1,5 @@
 ﻿using DurableFunctions.Models;
+using DurableFunctions.Models.Dto;
 using DurableFunctions.Services.Interfaces;
 using Microsoft.Azure.WebJobs;
 using Microsoft.Extensions.Logging;
@@ -19,8 +20,8 @@ namespace DurableFunctions.Triggers
         [FunctionName("ServiceBusTrigger")]
         public async Task ServiceBusTriggerFunction([ServiceBusTrigger("servicebusfunction", Connection = "serviceBus")] string myQueueItem, ILogger log)
         {
-            DummyObject dummyObject = JsonConvert.DeserializeObject<DummyObject>(myQueueItem);
-            await _cosmosService.AddObject(dummyObject);
+            DummyObjectTableEntity dummyObjectDto = JsonConvert.DeserializeObject<DummyObjectTableEntity>(myQueueItem);
+            await _cosmosService.AddObject(dummyObjectDto);
         }
     }
 }

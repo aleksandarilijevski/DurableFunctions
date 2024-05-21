@@ -1,12 +1,13 @@
 ﻿using DurableFunctions.Models;
+using DurableFunctions.Models.Dto;
 using System.Threading.Tasks;
 
 namespace DurableFunctions.Services.Interfaces
 {
     public interface ICosmosDBService
     {
-        public Task AddObject(DummyObject dummyObject);
+        public Task AddObject(DummyObjectTableEntity dummyObjectDto);
 
-        public Task<DummyObject> GetObjectByID(string id);
+        public Task<DummyObjectTableEntity> GetObjectByID(string id);
     }
 }
