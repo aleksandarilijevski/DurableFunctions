@@ -14,7 +14,6 @@ namespace DurableFunctions
             builder.Services.AddTransient<ITableStorageService, TableStorageService>();
             builder.Services.AddTransient<ICosmosDBService, CosmosDBService>();
             builder.Services.AddAutoMapper(typeof(Startup));
-            builder.Services.AddJ
         }
     }
 }
