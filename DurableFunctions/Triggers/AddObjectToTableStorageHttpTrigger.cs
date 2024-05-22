@@ -16,18 +16,18 @@ using System.Web.Http;
 
 namespace DurableFunctions.Triggers
 {
-    public class HttpTriggers
+    public class AddObjectToTableStorageHttpTrigger
     {
         private ICosmosDBService _cosmosService;
         private ITableStorageService _tableStorageService;
 
-        public HttpTriggers(ICosmosDBService cosmosService, ITableStorageService tableStorageService)
+        public AddObjectToTableStorageHttpTrigger(ICosmosDBService cosmosService, ITableStorageService tableStorageService)
         {
             _cosmosService = cosmosService;
             _tableStorageService = tableStorageService;
         }
 
-        [FunctionName("AddObjectToTableStorage")]
+        [FunctionName(nameof(AddObjectToTableStorageHttpTrigger))]
         public async Task<IActionResult> AddObjectToTableStorageFunction(
             [HttpTrigger(AuthorizationLevel.Anonymous, "post")] HttpRequest req,
             ILogger log, [DurableClient] IDurableOrchestrationClient starter)

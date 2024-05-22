@@ -10,16 +10,16 @@ using System.Threading.Tasks;
 
 namespace DurableFunctions.Triggers
 {
-    public class TimerTriggers
+    public class SendObjectToServiceBusTimerTrigger
     {
         private ITableStorageService _tableStorageService;
 
-        public TimerTriggers(ITableStorageService tableStorageService, ICosmosDBService cosmosService)
+        public SendObjectToServiceBusTimerTrigger(ITableStorageService tableStorageService, ICosmosDBService cosmosService)
         {
             _tableStorageService = tableStorageService;
         }
 
-        [FunctionName("TimerTrigger")]
+        [FunctionName(nameof(SendObjectToServiceBusTimerTrigger))]
         public async Task TimerTriggerFunction([TimerTrigger("0 * * * * *", RunOnStartup = false)] TimerInfo timerInfo, ILogger log)
         {
             List<DummyObjectTableEntity> dummyObjects = await _tableStorageService.GetAllObjects();

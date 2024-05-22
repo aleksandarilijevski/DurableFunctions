@@ -8,16 +8,16 @@ using System.Threading.Tasks;
 
 namespace DurableFunctions.Triggers
 {
-    public class ServiceBusTriggers
+    public class AddObjectToCosmosDBServiceBusTrigger
     {
         private ICosmosDBService _cosmosService;
 
-        public ServiceBusTriggers(ICosmosDBService cosmosService)
+        public AddObjectToCosmosDBServiceBusTrigger(ICosmosDBService cosmosService)
         {
             _cosmosService = cosmosService;
         }
 
-        [FunctionName("ServiceBusTrigger")]
+        [FunctionName(nameof(AddObjectToCosmosDBServiceBusTrigger))]
         public async Task ServiceBusTriggerFunction([ServiceBusTrigger("servicebusfunction", Connection = "serviceBus")] string myQueueItem, ILogger log)
         {
             DummyObjectTableEntity dummyObjectDto = JsonConvert.DeserializeObject<DummyObjectTableEntity>(myQueueItem);
