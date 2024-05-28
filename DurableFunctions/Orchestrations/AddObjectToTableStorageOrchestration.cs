@@ -17,9 +17,13 @@ namespace DurableFunctions.Orchestrations
 
             try
             {
-                await context.CallSubOrchestratorAsync<DummyObject>(nameof(AddObjectToTableStorageSuborchestration), dummyObject);
+                await context.CallSubOrchestratorAsync(nameof(AddObjectToTableStorageSuborchestration), dummyObject);
             }
-            catch (EntityAlreadyExistsInTableStorageException e)
+            catch (FunctionFailedException e)
+            {
+                throw;
+            }
+            catch (Exception ex)
             {
                 throw;
             }

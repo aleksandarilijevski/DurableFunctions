@@ -18,7 +18,7 @@ namespace DurableFunctions.Triggers
         }
 
         [FunctionName(nameof(AddObjectToCosmosDBServiceBusTrigger))]
-        public async Task ServiceBusTriggerFunction([ServiceBusTrigger("servicebusfunction", Connection = "serviceBus")] string myQueueItem, ILogger log)
+        public async Task ServiceBusTriggerFunction([ServiceBusTrigger("servicebusqueue", Connection = "serviceBus")] string myQueueItem, ILogger log)
         {
             DummyObjectTableEntity dummyObjectDto = JsonConvert.DeserializeObject<DummyObjectTableEntity>(myQueueItem);
             await _cosmosService.AddObject(dummyObjectDto);

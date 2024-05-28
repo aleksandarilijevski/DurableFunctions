@@ -26,8 +26,8 @@ namespace DurableFunctions.Triggers
 
             foreach (DummyObjectTableEntity dummyObject in dummyObjects)
             {
-                ServiceBusClient client = new ServiceBusClient("Endpoint=sb://servicebusexample2024.servicebus.windows.net/;SharedAccessKeyName=RootManageSharedAccessKey;SharedAccessKey=14Y8qCyQN6Rqr3oXs/Bn+E6fS9XbEMrQV+ASbCd8E10=");
-                ServiceBusSender sender = client.CreateSender("servicebusfunction");
+                ServiceBusClient client = new ServiceBusClient("Endpoint=sb://servicebusexample221.servicebus.windows.net/;SharedAccessKeyName=RootManageSharedAccessKey;SharedAccessKey=bRYEE44anAaVVO2FvA8kjV5FFSV1rZEuZ+ASbH7ePWQ=");
+                ServiceBusSender sender = client.CreateSender("servicebusqueue");
 
                 string body = JsonConvert.SerializeObject(dummyObject);
                 ServiceBusMessage serviceBusMessage = new ServiceBusMessage(body);

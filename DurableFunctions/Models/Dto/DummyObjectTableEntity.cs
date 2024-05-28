@@ -10,6 +10,7 @@ namespace DurableFunctions.Models.Dto
         [JsonProperty("id")]
         public string RowKey { get; set; }
 
+        [JsonProperty("partitionKey")]
         public string PartitionKey { get; set; } = "InputKey";
 
         public DateTimeOffset? Timestamp { get; set; }

@@ -27,9 +27,13 @@ namespace DurableFunctions.Suborchestrations
 
             try
             {
-                await context.CallActivityAsync<DummyObject>(nameof(AddObjectToTableStorageActivity), dummyObjectDto);
+                await context.CallActivityAsync(nameof(AddObjectToTableStorageActivity), dummyObjectDto);
             }
-            catch (EntityAlreadyExistsInTableStorageException e)
+            catch (FunctionFailedException e)
+            {
+                throw;
+            }
+            catch (Exception ex)
             {
                 throw;
             }

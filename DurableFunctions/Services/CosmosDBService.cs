@@ -8,20 +8,20 @@ namespace DurableFunctions.Services
 {
     public class CosmosDBService : ICosmosDBService
     {
-        private string _databaseName = "CosmosDB";
-        private string _containerName = "DummyObjects";
+        private string _databaseName = "DummyObjects";
+        private string _containerName = "containerId";
 
         private Container _container;
 
         public CosmosDBService()
         {
-            CosmosClient cosmosClient = new CosmosClient("AccountEndpoint=https://cosmosdbexample2024.documents.azure.com:443/;AccountKey=s4js44ef80L4S6acN8t2hSBI9QqWkIBdARkoxcbnTA1sOjUqMmzUWdPWa4XZYCYdXef9TSpzzN7jACDbmrSEEg==;");
+            CosmosClient cosmosClient = new CosmosClient("AccountEndpoint=https://cosmosdbexample24.documents.azure.com:443/;AccountKey=2VvfyWl18K1QRuEvRt6E7c3LeWwpdTGQGjpRRSZIAVh4jKfX2jr6mykSGsa7D40TzhrpCvkGEOPxACDbk3mqCg==;");
             _container = cosmosClient.GetContainer(_databaseName, _containerName);
         }
 
         public async Task AddObject(DummyObjectTableEntity dummyObjectDto)
         {
-            await _container.CreateItemAsync(dummyObjectDto, new PartitionKey(dummyObjectDto.PartitionKey));
+            await _container.CreateItemAsync(dummyObjectDto, new PartitionKey("InputKey"));
         }
 
         public async Task<DummyObjectTableEntity> GetObjectByID(string id)

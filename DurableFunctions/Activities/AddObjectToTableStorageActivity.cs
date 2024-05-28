@@ -20,15 +20,20 @@ namespace DurableFunctions.Activities
         [FunctionName(nameof(AddObjectToTableStorageActivity))]
         public async Task Run([ActivityTrigger] DummyObjectTableEntity dummyObjectDto)
         {
+
             try
             {
                 await _tableStorageService.AddObject(dummyObjectDto);
             }
             catch (Exception e)
             {
-                if (e.Message.Contains("The specified entity already exists"))
+                if (e.Message.Contains("This specified entity already exists"))
                 {
                     throw new EntityAlreadyExistsInTableStorageException("Entity with entered ID already exists!");
+                }
+                else
+                {
+                    throw;
                 }
             }
         }

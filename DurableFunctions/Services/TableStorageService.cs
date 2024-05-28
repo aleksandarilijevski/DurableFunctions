@@ -9,11 +9,11 @@ namespace DurableFunctions.Services
 {
     public class TableStorageService : ITableStorageService
     {
-        private string _connectionString = "DefaultEndpointsProtocol=https;AccountName=development2024;AccountKey=NwhakNgdRM9fGB06a8M04FGjmVVNovTB0RkyOaTk6sCljwsK5+YFnmbiL0YZu8Efszjcupfxc1tL+AStbABL/Q==;EndpointSuffix=core.windows.net";
+        private string _connectionString = "DefaultEndpointsProtocol=https;AccountName=development123;AccountKey=ucKdMDljrCjuHNqniqVHHEObaF/sShkgjcacJFLQwQa5X2vASUkQc+oxTicVc9xjaV0f5wa4ThKo+AStbTPoZg==;EndpointSuffix=core.windows.net";
 
         public async Task AddObject(DummyObjectTableEntity dummyObjectDto)
         {
-            TableClient tableClient = new TableClient(_connectionString, "developmentTable");
+            TableClient tableClient = new TableClient(_connectionString, "development123");
 
             await tableClient.CreateIfNotExistsAsync();
             await tableClient.AddEntityAsync(dummyObjectDto);
@@ -21,7 +21,7 @@ namespace DurableFunctions.Services
 
         public async Task<List<DummyObjectTableEntity>> GetAllObjects()
         {
-            TableClient tableClient = new TableClient(_connectionString, "developmentTable");
+            TableClient tableClient = new TableClient(_connectionString, "development123");
 
             AsyncPageable<DummyObjectTableEntity> data = tableClient.QueryAsync<DummyObjectTableEntity>();
             List<DummyObjectTableEntity> dummyObjects = new List<DummyObjectTableEntity>();
@@ -36,7 +36,7 @@ namespace DurableFunctions.Services
 
         public async Task DeleteObject(DummyObjectTableEntity dummyObjectDto)
         {
-            TableClient tableClient = new TableClient(_connectionString, "developmentTable");
+            TableClient tableClient = new TableClient(_connectionString, "development123");
             await tableClient.DeleteEntityAsync(dummyObjectDto.PartitionKey, dummyObjectDto.RowKey);
         }
     }
